@@ -1,0 +1,95 @@
+>> php artisan route:list => afficher la liste des routes  
+
+	 _______________________________
+	/				\	
+	|	Liason des vues		|
+	\_______________________________/
+
+_________________________________________________________________---routes/web.php 
+								|
+Route::get('/posts/{id}'; [PostController::class, 'show']);	| => adresse de la route qui prend en compte l'id; et appelle l'objet 'show' 
+								|
+...->name('welcome') 						| => route nommé en 'welcome' 
+...->whereNumber('id');						| => dire qu'id ne peut qu'être qu'un nombre 
+----------------------------------------------------------------|--- app/Http/Controllers/PostController.php 
+								|
+public function show ($id) 					| => création d'une méthode 
+{								|
+	$posts = [						| => stocke 
+		1 => 'Premier titre', 				|
+		2 => 'Deuxieme titre' 				|
+	]; 							|
+								|
+	$post = $posts[$id] ?? 'rien' ; 			| => stocke l'id de posts // ?? => sinon 
+								|
+	return view('article',  [				| => renvoie la view article 
+		'post' => $post 				| => post = $post 
+		]); 						|
+}								|
+								|
+----------------------------------------------------------------|--- ressources/views/article.blade.php
+								|
+<body> 								|
+	<h1> {{ $post }} </h1> 					| => renvoie $post 
+</body> 							|
+								|
+________________________________________________________________|
+
+	 _______________________________
+	/				\	
+	|	Optimisation des vues	|
+	\_______________________________/
+
+
+ressources/views $> layouts	|
+layouts/app.blade.php		| => fichier pour isoler ce qui se répete      
+
+________________________________________ ---ressources/views/layouts/app.blade.php---
+<!DOCTYPER html> 			|
+<html> 					|	
+<head> 					|
+	<meta charset="UTF-8> 		|
+	<title>Document</title> 	|
+</head>  				|
+<body> 					|
+	@yield('content') 		| => directive pour appeler le contenu lié à 'content' 
+</body>					|
+					|
+----------------------------------------|---ressources/views/article.blade.php---
+					|
+@extends('layout.app') 			| => entension du layout // .app -> pour dire que c'est dans app 
+					|
+@section('content') 			| => création de la section 
+<h1>Contenu</h1> 			| => comme son nom l'indique ;)
+	.				|
+	.				|
+	.				|
+@endsection 				| => fin de la section 
+________________________________________|
+
+/!\ : penser au routing malgré l'optimisation 
+
+
+
+________________________________________ ---ressources/views/layout/app.blade.php---
+<!DOCTYPER html> 			|
+<html> 					|	
+<head> 					|
+	<meta charset="UTF-8> 		|
+	<title>Document</title> 	|
+</head>  				|
+<body>					| 
+	@include('partials.navbar')	| => directive d'inclusion pour la navbar 
+	@yield('content') 		| 
+</body>					|
+					|
+----------------------------------------|---ressources/views/partials/navbar.blade.php---
+									|
+<nav> 									|
+	<ul> 								|
+	<li><a href= "{{ route =('welcome') }}">Accueil</a></li>	| => lien renvoyer vers la route portant ce nom 
+	</ul>								|
+</nav> 									|
+________________________________________________________________________|
+
+

@@ -1,0 +1,13 @@
+Les middlewares 
+
+Système de laravel pour traitement avant et après la requête. S'occupe des exceptions en renvoyant 
+un système de debug ou une page erreur 500 avec plus de details. Dans un formulaire on recupe 
+les données (get) => middleware recupere pour les pré traiter pour nous la rendre accessible 
+dans le variable $request -> permet de spécifier certaines choses ( en donnant des conditions ) 
+
+ex : 
+
+middleware qui vérifie si l'utilisateur est connécté et dans le cas contraire il est renvoyé 
+vers la page de connexion 
+
+check si quand un user est co de vérifier ses rôles 

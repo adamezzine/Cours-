@@ -1,0 +1,51 @@
+	Les ROUTES :
+
+. GET : pour la récuprationde données 
+. POST : pour la création ou l'envoie de donées 
+. PUT : pour la modification de données 
+. DELETE : pour la suppression 
+
+Le routing se fait dans le routes/web.php. Chaque route a une méthode est renvoie quelque chose : 
+
+routes/web.php : 
+
+Retourner vers une view 
+ _______________________________________________________________________
+|									|
+|Route::get('/', function (){						| => adresse 
+|	return view('welcome');						| => retourne la view 'welcome'
+|}); 									|
+|_______________________________________________________________________|
+
+Donner une condition : 
+ _______________________________________________________________________
+|									|
+|Route::get('/user/{id}/{name}', function ($id, $name) {		|
+|	return([$id, $name]);						|
+|})->where(['id' => '[0-9]+', 'name' => '[a-z]+']);			|
+|_______________________________________________________________________|
+
+Utiliser l'id d'un user : 
+ _______________________________________________________________________
+|									|
+|Route::get('user/{id}, function($id) {					|
+|	return $id;							|
+|_______________________________________________________________________|
+
+Assigner un bouton vers une view : 
+ _______________________________________________________________________________________________________________________________
+|								|								|
+|								|								|							
+|Route::post('/demonstration', function () { 		1	|<form action="{{ route('demo') }}" method="post"> 	1	|
+|	return 'ça marche';				2	|	@csrf						2	|
+|})->name('demo');					3	|	<button>POST</button> 				3	|
+|								|</form>						4	|								
+|								|								|
+|_______________________________________________________________|_______________________________________________________________|
+
+1. methode post assigné à la racine 				1.
+2. renvoi un texte 						2. permet de renvoyer vers /demo en cliquant sur le bouton 
+3. nomination de la fonction 					3. 
+								4. 
+
+

@@ -1,0 +1,89 @@
+
+>> php artisan make:controller [nom_du_controller] => création d'un controller 
+
+-------------------------------------------------------------------------------------------------------------------
+Http/Controllers/PostController.php : 
+
+ _______________________________________________					
+|						|
+|<?php						|	 
+|						|
+|namespace App\Http\Controllers; 		| => Arborescence du chemin 
+|						|
+|use Illutminate\Http\Request;			|
+|						|
+|class PostController extends Controller	| => création class en extension de "Controller"
+|{						|
+|	public function index()			| => création fonction index 
+|	{					|
+|		return view('articles '); 	| => return la view "articles.blade.php" 
+|	}					|
+|}						|
+|_______________________________________________|
+	                                     
+
+routes/web.php : 
+ _______________________________________________________
+|							|
+|<?php 							|
+|							|		
+|use Illuminate\Suppport\Facades\Route;			| => par defaut 
+|use App\Http\Controllers\PostController;		| => appel du chemin 
+|							|
+|Route::get('/', [PostController::class, 'index']);	| => appel de l'index de la class PostController 
+|	     |	    					|
+|	     ˇ						|
+|	   chemin					|
+|							|
+|_______________________________________________________|
+
+-------------------------------------------------------------------------------------------------------------------
+
+Http/Controllers/PostController.php :
+ ________________________________________________________________________________________________
+|												|
+|<?php												|
+|												|
+|namespace App\Http\Controllers;								|
+|use Illuminate\Htpp\Request; 									|
+|												|
+|class PostController extends Controller							|
+|{												|
+|	public function index()									|
+|	{											|
+|	/*											|
+|		$title = 'Mon super titre';							|
+|												|
+|												|
+|		return view('articles', compact('title'));					|
+|	}											|
+|	*/											|
+|		$posts = [ 									|
+|			'Mon super premier titre',						| => variable qui stocke les phrases suivantes 
+|			'Mon super deuxieme titre'						|
+|		];										|
+|												|
+|			return view('articles', compact('posts'));				|
+|}												|
+|_______________________________________________________________________________________________|
+
+fichier_view.blade.php : 
+ _______________________________________________________
+|							|
+|<body>							|
+|	<h1>Liste des articles</h1>			|
+|							|
+|	<!--<h2>{{ $title }}</h2>-->			| => appel de ma variable $title 
+|							|
+|	@foreach($posts as $post)			| => boucle qui parcours $posts et stocke dans $post
+|		<h3>{{ $post }}</h3>			| => affiche $post 
+|	@endforeach					| => fin de la boucle 
+|							|
+|</body> 						|
+|_______________________________________________________|
+
+
+
+
+
+
