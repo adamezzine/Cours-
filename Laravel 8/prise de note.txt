@@ -1,0 +1,88 @@
+
+variable  : 
+________________________________________________
+Route::get('/bonjour/{nom}', function () {	|
+						|
+------------------------------------------------|
+	$nom = request('nom'); 			| => reprend le nom dans l'adresse 
+						|
+	return view('bonjour', [		| => renvoie la vue bonjour, variable prenom qui reprend le $nom 
+		'prenom' => $nom, 		|
+	]); 					|
+});						|
+						|
+------------------------------------------------|---- vue 'bonjour' 
+<h1> Bonjour {{ request('nom'}} </h1> 		| => Affiche bonjour {nom}
+------------------------------------------------|
+	return view('bonjour', [		| => renvoie la vue bonjour, variable prenom qui reprend le nom 
+		'prenom' => request('nom')	|
+	]); 					|
+});						|
+------------------------------------------------|---- vue 'bonjour' 
+<h1> Bonjour {{ request('prenom'}} </h1>	| => Affiche bonjour {prenom}
+________________________________________________|
+
+request => fonction récupérant ce qui est envoyé en GETou en POST 
+
+création d'un formulaire : 
+
+________________________________________________________________________________________________________________---- vue d'inscription 
+@extends('layout.app')												|
+														|
+@section('contenu') 												|
+	{{ csrf_field() }} => rajoute un input caché pour vérifier si c'est bien envoyé depuis le site 		|
+	<form action="/inscription" method="post"> 								|
+		<input type="email" name="email" placeholder="Email"> 						|
+		<input type="password" name="password" placeholder="Mot de passe" > 				|
+		<input type="password" name="password confirmation" placeholder="Mot de passe (confirmation)">	| 
+		<input type="submit" value="M'inscrire" > 							|
+	</form> 												|
+@endsection 													|
+----------------------------------------------------------------------------------------------------------------|---- web.php
+														|
+Route::get('/inscription', function () {									| => get -> transporte le paramètre dans la chaîne d'URL									
+	return view('inscription'); 										| => renvoie vue inscription 
+}); 														|
+														|
+Route::post('/inscription', function () {									| => post -> transporte le paramètre dans le corps du message
+	return 'Formulaire reçu'; 										| => renvoie chaine de caractères 
+}); 														|
+----------------------------------------------------------------------------------------------------------------|
+Route::post('/inscription', function () {									|
+	return "email : " . request('email') . 'mdp :' . request('password'); 					| => concatenation + montre email et password 
+}); 														|
+														|
+----------------------------------------------------------------------------------------------------------------|
+
+
+configuration de mysql : 
+________________________________________________________---- config/database.php
+'default' => env('DB_CONNECTION', 'mysql'),		| => configuration par defaut : lie sur db connection puis sur mysql 
+________________________________________________________|			
+
+________________________________________________________---- .env	
+DB_CONNECTION=mysql					| => liaison de db connexion à mysql 
+DB_HOST=localhost					| => hebergement 
+DB_PORT=3306						| => le port 
+DB_DATABASE=site					| => nom de la base de donnée 
+DB_USERNAME=root					| => nom du user 
+DB_PASSWORD=root					| => mot de passe 
+________________________________________________________|	
+
+créeation de sa base données : 
+		
+
+>> php artisan migrate:status  => pour verifier si les migrations fonctionnent 
+
+
+
+
+
+
+
+
+
+
+
+
+
