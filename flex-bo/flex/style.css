@@ -1,0 +1,17 @@
+.contenair_principal{
+    display: flex; 
+    justify-content: center; 
+}
+
+.flex-box{
+    border-radius: 20px;
+    border-color: rgba(255, 0, 0, 0.452); 
+    color:rgb(9, 255, 0);
+}
+header{
+    display: flex;
+    justify-content: center;  
+    border: red;
+      
+
+}
